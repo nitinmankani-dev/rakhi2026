@@ -1,63 +1,596 @@
-<div class="sisters">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <button class="sister" onclick="showMessage('Bharti')">
-    🌹 Bharti
-  </button>
+    <title>Happy Raksha Bandhan ❤️</title>
 
-  <button class="sister" onclick="showMessage('Diksha')">
-    🌼 Diksha
-  </button>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <button class="sister" onclick="showMessage('Heena')">
-    💖 Heena
-  </button>
+        body {
+            min-height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            text-align: center;
+            color: #5a2633;
+            overflow-x: hidden;
 
-  <button class="sister" onclick="showMessage('Jaya')">
-    🌺 Jaya
-  </button>
+            background:
+                radial-gradient(circle at 10% 10%, #ffffff 0%, transparent 25%),
+                radial-gradient(circle at 90% 90%, #ffd6e5 0%, transparent 30%),
+                linear-gradient(135deg, #fff0f5, #fff8df);
+        }
 
-  <button class="sister" onclick="showMessage('Karishma')">
-    👑 Karishma
-  </button>
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: auto;
+            padding: 45px 20px 60px;
+        }
 
-  <button class="sister" onclick="showMessage('Kiran')">
-    ✨ Kiran
-  </button>
+        /* Header */
+        .rakhi-icon {
+            font-size: 75px;
+            margin-bottom: 10px;
+            animation: pulse 2s infinite ease-in-out;
+        }
 
-  <button class="sister" onclick="showMessage('Leena')">
-    🌸 Leena
-  </button>
+        h1 {
+            font-size: clamp(34px, 7vw, 55px);
+            color: #c2185b;
+            margin-bottom: 12px;
+            text-shadow: 0 4px 10px rgba(194, 24, 91, 0.15);
+        }
 
-  <button class="sister" onclick="showMessage('Manali')">
-    🥰 Manali
-  </button>
+        .subtitle {
+            max-width: 700px;
+            margin: auto;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #7b3f4c;
+        }
 
-  <button class="sister" onclick="showMessage('Neha')">
-    💕 Neha
-  </button>
+        .instruction {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #a04a63;
+        }
 
-  <button class="sister" onclick="showMessage('Nikita')">
-    🎀 Nikita
-  </button>
+        /* Sister buttons */
+        .sisters {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 40px;
+        }
 
-  <button class="sister" onclick="showMessage('Purvi')">
-    🌷 Purvi
-  </button>
+        .sister {
+            position: relative;
+            overflow: hidden;
 
-  <button class="sister" onclick="showMessage('Seema')">
-    🌻 Seema
-  </button>
+            border: 2px solid #ffd1df;
+            border-radius: 20px;
 
-  <button class="sister" onclick="showMessage('Sneha')">
-    ❤️ Sneha
-  </button>
+            padding: 22px 15px;
 
-  <button class="sister" onclick="showMessage('Swapna')">
-    🌙 Swapna
-  </button>
+            background: rgba(255, 255, 255, 0.95);
 
-  <button class="sister" onclick="showMessage('Tanisha')">
-    🦋 Tanisha
-  </button>
+            color: #c2185b;
+            font-size: 19px;
+            font-weight: bold;
 
-</div>
+            cursor: pointer;
+
+            box-shadow: 0 8px 20px rgba(120, 30, 60, 0.12);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease,
+                background 0.3s ease;
+        }
+
+        .sister:hover {
+            transform: translateY(-7px);
+            background: #fff;
+            box-shadow: 0 15px 30px rgba(194, 24, 91, 0.22);
+        }
+
+        .sister:active {
+            transform: scale(0.96);
+        }
+
+        /* Shine effect */
+        .sister::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 70%;
+            height: 100%;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.8),
+                transparent
+            );
+
+            transform: skewX(-20deg);
+            transition: left 0.6s ease;
+        }
+
+        .sister:hover::after {
+            left: 140%;
+        }
+
+        /* Message */
+        .message-box {
+            display: none;
+
+            width: 100%;
+            max-width: 760px;
+
+            margin: 45px auto 0;
+            padding: 35px 30px;
+
+            background: rgba(255, 255, 255, 0.97);
+
+            border: 2px solid #ffd1df;
+            border-radius: 28px;
+
+            box-shadow: 0 15px 45px rgba(120, 30, 60, 0.18);
+
+            animation: messageIn 0.5s ease;
+        }
+
+        .message-box h2 {
+            color: #c2185b;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .message-box p {
+            color: #63343f;
+            font-size: 19px;
+            line-height: 1.9;
+        }
+
+        .close-btn {
+            margin-top: 25px;
+
+            border: none;
+            border-radius: 25px;
+
+            padding: 11px 25px;
+
+            background: #c2185b;
+            color: white;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            background: #a3154d;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 50px;
+
+            color: #8a4b58;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .footer strong {
+            color: #c2185b;
+            font-size: 18px;
+        }
+
+        /* Floating hearts */
+        .floating {
+            position: fixed;
+            bottom: -50px;
+
+            pointer-events: none;
+
+            animation: floatUp linear forwards;
+
+            z-index: -1;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.12);
+            }
+        }
+
+        @keyframes messageIn {
+            from {
+                opacity: 0;
+                transform: translateY(25px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-115vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Tablet */
+        @media (max-width: 750px) {
+            .sisters {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 15px 50px;
+            }
+
+            .rakhi-icon {
+                font-size: 60px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .sisters {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .sister {
+                padding: 18px 8px;
+                font-size: 16px;
+                border-radius: 16px;
+            }
+
+            .message-box {
+                padding: 28px 18px;
+            }
+
+            .message-box h2 {
+                font-size: 27px;
+            }
+
+            .message-box p {
+                font-size: 17px;
+                line-height: 1.8;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ==============================
+             HEADER
+        =============================== -->
+
+        <div class="rakhi-icon">🪷</div>
+
+        <h1>Happy Raksha Bandhan ❤️</h1>
+
+        <p class="subtitle">
+            A little surprise for some very special sisters.
+        </p>
+
+        <p class="instruction">
+            ✨ Click your name to reveal your special message ✨
+        </p>
+
+
+        <!-- ==============================
+             SISTER NAMES
+             Alphabetical Order
+        =============================== -->
+
+        <div class="sisters">
+
+            <button class="sister" onclick="showMessage('Bharti')">
+                🌹 Bharti
+            </button>
+
+            <button class="sister" onclick="showMessage('Diksha')">
+                🌼 Diksha
+            </button>
+
+            <button class="sister" onclick="showMessage('Heena')">
+                💖 Heena
+            </button>
+
+            <button class="sister" onclick="showMessage('Jaya')">
+                🌺 Jaya
+            </button>
+
+            <button class="sister" onclick="showMessage('Karishma')">
+                👑 Karishma
+            </button>
+
+            <button class="sister" onclick="showMessage('Kiran')">
+                ✨ Kiran
+            </button>
+
+            <button class="sister" onclick="showMessage('Leena')">
+                🌸 Leena
+            </button>
+
+            <button class="sister" onclick="showMessage('Manali')">
+                🥰 Manali
+            </button>
+
+            <button class="sister" onclick="showMessage('Neha')">
+                💕 Neha
+            </button>
+
+            <button class="sister" onclick="showMessage('Nikita')">
+                🎀 Nikita
+            </button>
+
+            <button class="sister" onclick="showMessage('Purvi')">
+                🌷 Purvi
+            </button>
+
+            <button class="sister" onclick="showMessage('Seema')">
+                🌻 Seema
+            </button>
+
+            <button class="sister" onclick="showMessage('Sneha')">
+                ❤️ Sneha
+            </button>
+
+            <button class="sister" onclick="showMessage('Swapna')">
+                🌙 Swapna
+            </button>
+
+            <button class="sister" onclick="showMessage('Tanisha')">
+                🦋 Tanisha
+            </button>
+
+        </div>
+
+
+        <!-- ==============================
+             MESSAGE BOX
+        =============================== -->
+
+        <div id="messageBox" class="message-box">
+
+            <h2 id="sisterName"></h2>
+
+            <p id="sisterMessage"></p>
+
+            <button class="close-btn" onclick="closeMessage()">
+                Close ❤️
+            </button>
+
+        </div>
+
+
+        <!-- ==============================
+             FOOTER
+        =============================== -->
+
+        <div class="footer">
+
+            Made with <span>❤️</span> and lots of love
+
+            <br>
+
+            For all the wonderful sisters ✨
+
+            <br><br>
+
+            <strong>
+                Happy Raksha Bandhan! 🪢💕
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* =====================================
+           MESSAGES FOR ALL 15 SISTERS
+        ====================================== */
+
+        const messages = {
+
+            "Bharti":
+                "Dear Bharti, your presence makes every family moment a little more special. May your journey ahead be filled with success, laughter, love, and countless unforgettable memories. Stay happy, stay blessed, and keep shining. Wishing you a very Happy Raksha Bandhan! 🌹❤️",
+
+            "Diksha":
+                "Dear Diksha, may every step you take bring you closer to your dreams. May you always have the courage to follow your heart and the strength to overcome every challenge. You deserve all the beautiful things life has to offer. Happy Raksha Bandhan! 🌼💖",
+
+            "Heena":
+                "Dear Heena, you have such a beautiful heart and a smile that can brighten any day. May life always give you reasons to smile and surround you with love, happiness, and wonderful memories. Stay blessed and keep shining. Happy Raksha Bandhan! 💖",
+
+            "Jaya":
+                "Dear Jaya, may happiness always find its way to you. May you continue to grow, shine, and achieve everything you dream of. Never forget how special and loved you are. Wishing you a beautiful and blessed Raksha Bandhan! 🌺❤️",
+
+            "Karishma":
+                "Dear Karishma, you truly have a special charm that makes you unforgettable. May you always believe in yourself, reach new heights, and live a life full of love, laughter, and happiness. Keep shining like the star you are. Happy Raksha Bandhan! 👑✨",
+
+            "Kiran":
+                "Dear Kiran, just like your name, may you always be a beautiful ray of light in everyone's life. Keep smiling, keep shining, and never stop chasing your dreams. May your life be filled with countless reasons to smile. Happy Raksha Bandhan! ✨❤️",
+
+            "Leena":
+                "Dear Leena, you are a beautiful part of this wonderful family. May your life always be filled with love, laughter, peace, and countless reasons to smile. May every dream in your heart find its way to reality. Keep shining and stay as wonderful as you are. Happy Raksha Bandhan! 🌸❤️",
+
+            "Manali":
+                "Dear Manali, life becomes more beautiful when it is filled with people who bring joy and warmth, and you are certainly one of them. May your days be filled with laughter, love, adventures, and wonderful memories. Wishing you endless happiness. Happy Raksha Bandhan! 🥰💕",
+
+            "Neha":
+                "Dear Neha, having a sister like you is nothing less than a blessing. May all your wishes come true and may every day bring you something beautiful. Keep smiling and spreading happiness wherever you go. Wishing you a very Happy Raksha Bandhan! 💕🌸",
+
+            "Nikita":
+                "Dear Nikita, you are one of those beautiful people who make life brighter simply by being around. May your smile always stay bright, your heart always stay happy, and your dreams turn into beautiful realities. Wishing you endless happiness and a very Happy Raksha Bandhan! 🎀❤️",
+
+            "Purvi":
+                "Dear Purvi, some relationships become precious because of the love, laughter, and memories we share. You are truly special and deserve all the happiness in the world. May every new chapter of your life be filled with beautiful moments. Happy Raksha Bandhan! 🌷💖",
+
+            "Seema":
+                "Dear Seema, your kindness and warmth make you truly special. May your life always be surrounded by love, peace, laughter, and wonderful people. Keep being the beautiful soul that you are, and may every day bring you something to smile about. Happy Raksha Bandhan! 🌻❤️",
+
+            "Sneha":
+                "Dear Sneha, your name itself means love, and you truly spread that warmth wherever you go. May your life always be surrounded by people who love and appreciate you. Keep smiling, keep loving, and keep shining. Wishing you a very Happy Raksha Bandhan! ❤️🌸",
+
+            "Swapna":
+                "Dear Swapna, may all your beautiful dreams slowly turn into wonderful realities. May your heart always be peaceful, your smile endless, and your journey full of magical moments. Keep dreaming, keep believing, and keep shining. Happy Raksha Bandhan! 🌙✨",
+
+            "Tanisha":
+                "Dear Tanisha, may your life always be as colorful and beautiful as a butterfly. Fly high, dream big, and never let anything stop you from becoming the person you want to be. Wishing you lots of love, success, happiness, and beautiful memories. Happy Raksha Bandhan! 🦋❤️"
+        };
+
+
+        /* =====================================
+           SHOW SISTER MESSAGE
+        ====================================== */
+
+        function showMessage(name) {
+
+            const messageBox = document.getElementById("messageBox");
+            const sisterName = document.getElementById("sisterName");
+            const sisterMessage = document.getElementById("sisterMessage");
+
+            sisterName.textContent = "For " + name + " ❤️";
+
+            sisterMessage.textContent = messages[name];
+
+            messageBox.style.display = "block";
+
+            messageBox.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+            createCelebration();
+        }
+
+
+        /* =====================================
+           CLOSE MESSAGE
+        ====================================== */
+
+        function closeMessage() {
+
+            document.getElementById("messageBox").style.display = "none";
+
+        }
+
+
+        /* =====================================
+           FLOATING HEARTS / FLOWERS
+        ====================================== */
+
+        function createFloatingElement() {
+
+            const element = document.createElement("div");
+
+            element.className = "floating";
+
+            const items = [
+                "❤️",
+                "💕",
+                "💖",
+                "💗",
+                "🌸",
+                "🌷",
+                "✨",
+                "💝"
+            ];
+
+            element.textContent =
+                items[Math.floor(Math.random() * items.length)];
+
+            element.style.left =
+                Math.random() * 100 + "vw";
+
+            element.style.fontSize =
+                (16 + Math.random() * 20) + "px";
+
+            element.style.animationDuration =
+                (5 + Math.random() * 5) + "s";
+
+            document.body.appendChild(element);
+
+            setTimeout(function () {
+                element.remove();
+            }, 10000);
+        }
+
+
+        /* =====================================
+           LITTLE CELEBRATION WHEN NAME CLICKED
+        ====================================== */
+
+        function createCelebration() {
+
+            for (let i = 0; i < 8; i++) {
+
+                setTimeout(function () {
+
+                    createFloatingElement();
+
+                }, i * 100);
+
+            }
+        }
+
+
+        /* Start floating animation */
+
+        setInterval(function () {
+
+            createFloatingElement();
+
+        }, 900);
+
+    </script>
+
+</body>
+</html>
